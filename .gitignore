@@ -1,4 +1,4 @@
-/node_modules
+# /node_modules
 /public/hot
 /public/storage
 /public/css
@@ -20,3 +20,4 @@ yarn-error.log
 /public/uploads
 /public/js/app.js
 /public/mix-manifest.json
+node_modules
