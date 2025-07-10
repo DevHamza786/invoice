@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex flex-column flex-column-fluid align-items-center justify-content-center p-4">
         <div class="col-12 text-center">
-            <a href="{{ url('/') }}" class="image mb-7 mb-sm-10 image-large">
+            <a href="{{ url('/') }}" class="image mb-7 mb-sm-10 image-medium">
                 <img alt="Logo" src="{{ getLogoUrl() }}" class="img-fluid object-contain">
             </a>
         </div>
