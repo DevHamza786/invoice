@@ -73,6 +73,10 @@ Route::middleware(['xss'])->group(function () {
         [InvoiceController::class, 'getPublicInvoicePdf']
     )->name('public-view-invoice.pdf');
     Route::get(
+        'download-invoice-pdf/{invoice}',
+        [InvoiceController::class, 'getPublicDownloadInvoicePdf']
+    )->name('public-download-invoice.pdf');
+    Route::get(
         'quote-pdf/{quote}',
         [QuoteController::class, 'getPublicQuotePdf']
     )->name('public-view-quote.pdf');

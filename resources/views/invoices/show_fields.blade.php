@@ -90,7 +90,11 @@
                                             <a target="_blank"
                                                 href="{{ route('public-view-invoice.pdf', ['invoice' => $invoice->invoice_id]) }}"
                                                 class="btn btn-sm btn-success text-white">{{ __('messages.invoice.print_invoice') }}</a>
+
                                         @endif
+                                            <a target="_blank"
+                                                href="{{ route('public-download-invoice.pdf', ['invoice' => $invoice->invoice_id]) }}"
+                                                class="btn btn-sm btn-success text-white mt-2">{{ __('Download') }}</a>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="d-flex flex-column mb-md-10 mb-5">

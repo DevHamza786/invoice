@@ -275,6 +275,17 @@ class InvoiceController extends AppBaseController
         return $pdf->stream('invoice.pdf');
     }
 
+    public function getPublicDownloadInvoicePdf($invoiceId)
+    {
+        $invoice = Invoice::whereInvoiceId($invoiceId)->firstOrFail();
+        $invoice->load('client.user', 'invoiceTemplate', 'invoiceItems.product', 'invoiceItems.invoiceItemTax');
+        $invoiceData = $this->invoiceRepository->getPdfData($invoice);
+        $invoiceTemplate = $this->invoiceRepository->getDefaultTemplate($invoice);
+        $pdf = PDF::loadView("invoices.invoice_template_pdf.$invoiceTemplate", $invoiceData);
+
+        return $pdf->download('invoice.pdf');
+    }
+
     public function showPublicPayment($invoiceId): Factory|View|Application
     {
         /** @var PaymentRepository $paymentRepo */
