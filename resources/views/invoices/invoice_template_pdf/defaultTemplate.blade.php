@@ -32,7 +32,7 @@
                 </div>
                 <div class="invoice-number font-color-gray">
                     {{ __('messages.invoice.invoice_id') . ':' }}&nbsp;#{{ $invoice->invoice_id }}</div>
-                <div class="logo"><img width="100px" src="{{ getLogoUrl() }}" alt="no-image"></div>
+                <div class="logo image-medium"><img width="100px" src="{{ getLogoUrl() }}" alt="no-image"></div>
             </td>
         </tr>
     </table>
