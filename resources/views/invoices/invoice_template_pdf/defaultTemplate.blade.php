@@ -20,7 +20,7 @@
     <div class="invoice-box"
         style="background: #fff; border-radius: 12px; padding: 0; max-width: 100%; margin: auto;">
         <!-- Header -->
-        <div style="background: #1976d2; color: #fff; border-radius: 20px 20px 0 0; padding: 32px 32px 24px 32px; width: 100%;">
+        <div style="background: #1976d2; color: #fff; padding: 32px 32px 24px 32px; width: 100%;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
         <tr>
             <td style="vertical-align: top; width: 55%;">
@@ -95,38 +95,36 @@
         </div>
 
         <!-- Payment Instructions & Summary -->
-        <div style="padding: 20px 20px 0 20px; display: flex; justify-content: space-between;">
-            <div style="width: 48%;">
-                <div style="color: #1976d2; font-weight: bold; margin-bottom: 5px;">Payment Instructions</div>
-                <div style="color: #888;">Pay Cheque to</div>
-                <div style="font-weight: bold;">{{ $setting['company_name'] ?? getAppName() }}</div>
-            </div>
-            <div style="width: 48%;">
-                <table width="100%" style="font-size: 1rem;">
-                    <tr>
-                        <td style="padding: 4px 0;">Subtotal</td>
-                        <td style="text-align: right; padding: 4px 0;">
-                            {{ getInvoiceCurrencyAmount($invoice->amount, $invoice->currency_id, true) }}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 4px 0;">Total</td>
-                        <td style="text-align: right; padding: 4px 0; font-weight: bold;">
-                            {{ getInvoiceCurrencyAmount($invoice->final_amount, $invoice->currency_id, true) }}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 4px 0;">Paid</td>
-                        <td style="text-align: right; padding: 4px 0;">
-                            {{ getInvoiceCurrencyAmount(getInvoicePaidAmount($invoice->id), $invoice->currency_id, true) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 4px 0; color: #1976d2; font-weight: bold;">Balance Due</td>
-                        <td style="text-align: right; padding: 4px 0; color: #1976d2; font-weight: bold;">
-                            {{ getInvoiceCurrencyAmount(getInvoiceDueAmount($invoice->id), $invoice->currency_id, true) }}
-                        </td>
-                    </tr>
-                </table>
-            </div>
+        <div style="padding: 20px 20px 0 20px;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
+                <tr>
+                    <td style="vertical-align: top; width: 50%;">
+                        <div style="color: #1976d2; font-weight: bold; margin-bottom: 5px;">Payment Instructions</div>
+                        <div style="color: #888;">Pay Cheque to</div>
+                        <div style="font-weight: bold;">{{ $setting['company_name'] ?? getAppName() }}</div>
+                    </td>
+                    <td style="vertical-align: top; width: 50%;">
+                        <table width="100%" style="font-size: 1rem;">
+                            <tr>
+                                <td style="padding: 4px 0;">Subtotal</td>
+                                <td style="text-align: right; padding: 4px 0;">{{ getInvoiceCurrencyAmount($invoice->amount, $invoice->currency_id, true) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">Total</td>
+                                <td style="text-align: right; padding: 4px 0; font-weight: bold;">{{ getInvoiceCurrencyAmount($invoice->final_amount, $invoice->currency_id, true) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">Paid</td>
+                                <td style="text-align: right; padding: 4px 0;">{{ getInvoiceCurrencyAmount(getInvoicePaidAmount($invoice->id), $invoice->currency_id, true) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0; color: #1976d2; font-weight: bold;">Balance Due</td>
+                                <td style="text-align: right; padding: 4px 0; color: #1976d2; font-weight: bold;">{{ getInvoiceCurrencyAmount(getInvoiceDueAmount($invoice->id), $invoice->currency_id, true) }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <!-- Signature -->
