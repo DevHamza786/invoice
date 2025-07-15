@@ -36,6 +36,8 @@ use Maatwebsite\Excel\Row;
 
 require __DIR__ . '/auth.php';
 
+Route::get('/test-invoice-view/{invoice}', [App\Http\Controllers\InvoiceController::class, 'testInvoiceView'])->name('test.invoice.view');
+
 Route::middleware(['xss'])->group(function () {
     Route::get('/', function () {
         if (Auth::check()) {
@@ -314,4 +316,6 @@ Route::middleware(['auth', 'xss'])->group(function () {
     Route::get('payment-notes/{paymentId}', [PaymentController::class, 'showPaymentNotes'])->name('payment-notes.show');
 });
 
-require __DIR__ . '/upgrade.php';
+require __DIR__.'/upgrade.php';
+
+Route::get('/test-invoice-view/{invoiceId}', [\App\Http\Controllers\InvoiceController::class, 'testInvoiceView'])->name('test.invoice.view');

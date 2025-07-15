@@ -200,9 +200,19 @@ class InvoiceController extends AppBaseController
         return $pdf->stream('invoice.pdf');
     }
 
+    public function testInvoiceView($invoiceId)
+    {
+        $invoice = Invoice::findOrFail($invoiceId);
+
+        $invoice->load(['client.user', 'invoiceTemplate', 'invoiceItems.product', 'invoiceItems.invoiceItemTax', 'invoiceTaxes', 'paymentQrCode']);
+        $invoiceData = $this->invoiceRepository->getPdfData($invoice);
+        $invoiceTemplate = $this->invoiceRepository->getDefaultTemplate($invoice);
+        // Return the view directly for browser preview
+        return view("invoices.invoice_template_pdf.$invoiceTemplate", $invoiceData);
+    }
+
     /**
-     * @param  Invoice  $invoice
-     * @param $status
+     * @param $invoiceId
      * @return mixed
      */
     public function updateInvoiceStatus(Invoice $invoice, $status): mixed
