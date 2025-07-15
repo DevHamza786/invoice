@@ -20,26 +20,23 @@
     <div class="invoice-box"
         style="background: #fff; border-radius: 12px; padding: 0; max-width: 100%; margin: auto;">
         <!-- Header -->
-        <div
-            style="background: #1976d2; color: #fff; border-radius: 12px 12px 0 0; padding: 20px; display: flex; align-items: center; justify-content: space-between;">
-            <div>
-                <div style="font-size: 2.2rem; font-weight: bold; letter-spacing: 2px;">INVOICE</div>
-                <div style="font-size: 1.1rem; font-weight: bold; margin-top: 10px;">
-                    {{ html_entity_decode(getAppName()) }}</div>
-                <div style="font-size: 0.95rem; margin-top: 5px; width:50%;">
-                    {{ $setting['company_address'] }}<br>
-                    @if ($setting['show_additional_address_in_invoice'])
-                        {{ $setting['country'] }}, {{ $setting['state'] }}, {{ $setting['city'] }},
-                        {{ $setting['zipcode'] }}<br>
-                    @endif
-                    Mobile: {{ $setting['company_phone'] }}<br>
-                    Email: {{ $setting['company_email'] ?? '' }}
-                </div>
+        <div style="background: #1976d2; color: #fff; border-radius: 20px 20px 0 0; padding: 32px 32px 24px 32px; display: flex; align-items: flex-start; justify-content: space-between; width: 100%;">
+    <div style="max-width: 60%;">
+        <div style="font-size: 2.2rem; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">INVOICE</div>
+        <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 6px;">{{ html_entity_decode(getAppName()) }}</div>
+        <div style="font-size: 1rem; margin-bottom: 2px;">{{ $setting['company_address'] }}</div>
+        @if ($setting['show_additional_address_in_invoice'])
+            <div style="font-size: 1rem; margin-bottom: 2px;">
+                {{ $setting['country'] }}, {{ $setting['state'] }}, {{ $setting['city'] }}, {{ $setting['zipcode'] }}
             </div>
-            <div>
-                <img src="{{ getLogoUrl() }}" alt="Logo" style="max-height: 100px;">
-            </div>
-        </div>
+        @endif
+        <div style="font-size: 1rem; margin-bottom: 2px;">Mobile: {{ $setting['company_phone'] }}</div>
+        <div style="font-size: 1rem; margin-bottom: 2px;">Email: {{ $setting['company_email'] ?? '' }}</div>
+    </div>
+    <div style="display: flex; align-items: flex-start; justify-content: flex-end; width: 35%; padding:20px;">
+        <img src="{{ getLogoUrl() }}" alt="Logo" style="max-height: 100px;">
+    </div>
+</div>
 
         <!-- Bill To & Invoice Details -->
         <div
