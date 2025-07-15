@@ -23,7 +23,7 @@
         <div style="background: #1976d2; color: #fff; border-radius: 20px 20px 0 0; padding: 32px 32px 24px 32px; width: 100%;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
         <tr>
-            <td style="vertical-align: top; width: 65%;">
+            <td style="vertical-align: top; width: 55%;">
                 <div style="font-size: 2.2rem; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">INVOICE</div>
                 <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 6px;">{{ html_entity_decode(getAppName()) }}</div>
                 <div style="font-size: 1rem; margin-bottom: 2px;">{{ $setting['company_address'] }}</div>
@@ -35,7 +35,7 @@
                 <div style="font-size: 1rem; margin-bottom: 2px;">Mobile: {{ $setting['company_phone'] }}</div>
                 <div style="font-size: 1rem; margin-bottom: 2px;">Email: {{ $setting['company_email'] ?? '' }}</div>
             </td>
-            <td style="vertical-align: top; text-align: right; width: 35%; padding:20px;">
+            <td style="vertical-align: top; text-align: right; width: 45%; padding:20px;">
                 <img src="{{ getLogoUrl() }}" alt="Logo" style="max-height: 100px;">
             </td>
         </tr>
@@ -43,15 +43,16 @@
 </div>
 
         <!-- Bill To & Invoice Details -->
-        <div
-            style="padding: 20px 20px 10px 20px; display: flex; justify-content: space-between; border-bottom: 2px solid #e3e3e3;">
-            <div style="width: 48%;">
+        <div style="padding: 20px 20px 10px 20px; border-bottom: 2px solid #e3e3e3;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
+        <tr>
+            <td style="vertical-align: top; width: 50%;">
                 <div style="color: #1976d2; font-weight: bold;">Bill To</div>
                 <div style="font-weight: bold;">{{ $client->user->full_name }}</div>
                 <div>{{ $client->address ?? '' }}</div>
                 <div>{{ $client->user->email }}</div>
-            </div>
-            <div style="width: 48%;">
+            </td>
+            <td style="vertical-align: top; width: 50%; text-align: right;">
                 <div style="font-weight: bold;">Invoice No : <span
                         style="font-weight: normal;">{{ $invoice->invoice_id }}</span></div>
                 <div>Invoice Date : <span
@@ -60,8 +61,10 @@
                 <div>Due Date : <span
                         style="font-weight: normal;">{{ \Carbon\Carbon::parse($invoice->due_date)->format('M d, Y') }}</span>
                 </div>
-            </div>
-        </div>
+            </td>
+        </tr>
+    </table>
+</div>
 
         <!-- Items Table -->
         <div style="padding: 0 20px;">
