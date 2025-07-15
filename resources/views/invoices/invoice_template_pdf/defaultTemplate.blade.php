@@ -6,6 +6,7 @@
     <title>Invoice PDF</title>
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <style>
+        @page { margin: 0; }
         body {
             font-family: 'DejaVu Sans', Arial, sans-serif;
             background: #f8f9fa;

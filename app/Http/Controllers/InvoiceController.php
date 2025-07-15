@@ -196,6 +196,7 @@ class InvoiceController extends AppBaseController
         $invoiceTemplate = $this->invoiceRepository->getDefaultTemplate($invoice);
 
         $pdf = PDF::loadView("invoices.invoice_template_pdf.$invoiceTemplate", $invoiceData);
+        $pdf->setPaper('A4', 'portrait'); // <-- Add this line
 
         return $pdf->stream('invoice.pdf');
     }
