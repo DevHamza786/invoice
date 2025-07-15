@@ -9,6 +9,8 @@
         body {
             font-family: 'DejaVu Sans', Arial, sans-serif;
             background: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
