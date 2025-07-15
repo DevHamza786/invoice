@@ -20,7 +20,7 @@
     <div class="invoice-box"
         style="background: #fff; border-radius: 12px; padding: 0; max-width: 100%; margin: auto;">
         <!-- Header -->
-        <div style="background: #1976d2; color: #fff; padding: 32px 32px 24px 32px; width: 100%;">
+        <div style="background: #1976d2; color: #fff; padding: 20px; width: 100%;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
         <tr>
             <td style="vertical-align: top; width: 55%;">
