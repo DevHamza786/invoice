@@ -100,6 +100,8 @@ class InvoiceTable extends LivewireTableComponent
             Column::make(__('messages.common.status'), 'status')
                 ->searchable()
                 ->view('invoices.components.transaction-status'),
+            Column::make('Download', 'id')
+                ->view('invoices.components.download-button'),
             Column::make(__('messages.common.action'), 'id')
                 ->view('livewire.invoice-action-button'),
 

@@ -318,4 +318,27 @@ Route::middleware(['auth', 'xss'])->group(function () {
 
 require __DIR__.'/upgrade.php';
 
+Route::get('/run-seeder', function () {
+    if (!app()->environment('local')) {
+        return 'This route is only available in the local environment.';
+    }
+
+    \Illuminate\Support\Facades\Artisan::call('db:seed');
+
+    return 'Database has been seeded!';
+});
+
+Route::get('/run-settings-seeder', function () {
+    if (!app()->environment('local')) {
+        return 'This route is only available in the local environment.';
+    }
+
+    \Illuminate\Support\Facades\Artisan::call('db:seed', [
+        '--class' => 'SettingsTableSeeder',
+        '--force' => true // Use --force to run in production if needed, but be careful
+    ]);
+
+    return 'SettingsTableSeeder has been run successfully!';
+});
+
 Route::get('/test-invoice-view/{invoiceId}', [\App\Http\Controllers\InvoiceController::class, 'testInvoiceView'])->name('test.invoice.view');

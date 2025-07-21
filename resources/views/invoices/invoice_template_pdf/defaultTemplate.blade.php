@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Invoice PDF</title>
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <title>Invoice # {{$invoice->invoice_id}}</title>
     <style>
-        @page { margin: 0; }
+        @page {
+            margin: 0;
+        }
+
         body {
             font-family: 'DejaVu Sans', Arial, sans-serif;
-            background: #f8f9fa;
             margin: 0;
             padding: 0;
         }
@@ -17,54 +18,58 @@
 </head>
 
 <body>
-    <div class="invoice-box"
-        style="background: #fff; border-radius: 12px; padding: 0; max-width: 100%; margin: auto;">
+    <div class="invoice-box" style="background: #fff; border-radius: 12px; padding: 0; max-width: 100%; margin: auto;">
         <!-- Header -->
         <div style="background: #1976d2; color: #fff; padding: 20px; width: 100%;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
-        <tr>
-            <td style="vertical-align: top; width: 55%;">
-                <div style="font-size: 2.2rem; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">INVOICE</div>
-                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 6px;">{{ html_entity_decode(getAppName()) }}</div>
-                <div style="font-size: 1rem; margin-bottom: 2px;">{{ $setting['company_address'] }}</div>
-                @if ($setting['show_additional_address_in_invoice'])
-                    <div style="font-size: 1rem; margin-bottom: 2px;">
-                        {{ $setting['country'] }}, {{ $setting['state'] }}, {{ $setting['city'] }}, {{ $setting['zipcode'] }}
-                    </div>
-                @endif
-                <div style="font-size: 1rem; margin-bottom: 2px;">Mobile: {{ $setting['company_phone'] }}</div>
-                <div style="font-size: 1rem; margin-bottom: 2px;">Email: {{ $setting['company_email'] ?? '' }}</div>
-            </td>
-            <td style="vertical-align: top; text-align: right; width: 45%; padding:20px;">
-                <img src="{{ getLogoUrl() }}" alt="Logo" style="max-height: 100px;">
-            </td>
-        </tr>
-    </table>
-</div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
+                <tr>
+                    <td style="vertical-align: top; width: 55%;">
+                        <div style="font-size: 2.2rem; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">
+                            INVOICE</div>
+                        <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 6px;">
+                            {{ html_entity_decode(getAppName()) }}</div>
+                        <div style="font-size: 1rem; margin-bottom: 2px;">{{ $setting['company_address'] }}</div>
+                        @if ($setting['show_additional_address_in_invoice'])
+                            <div style="font-size: 1rem; margin-bottom: 2px;">
+                                {{ $setting['country'] }}, {{ $setting['state'] }}, {{ $setting['city'] }},
+                                {{ $setting['zipcode'] }}
+                            </div>
+                        @endif
+                        <div style="font-size: 1rem; margin-bottom: 2px;">ABN # {{ $setting['abn'] ?? '' }}
+                        <div style="font-size: 1rem; margin-bottom: 2px;">Mobile: {{ $setting['company_phone'] }}</div>
+                        </div>
+                    </td>
+                    <td style="vertical-align: top; text-align: right; width: 45%; padding:40px;">
+                        <img src="{{ $setting['app_logo'] }}" alt="Logo" style="max-height: 100px;">
+                    </td>
+                </tr>
+            </table>
+        </div>
 
         <!-- Bill To & Invoice Details -->
         <div style="padding: 20px 20px 10px 20px; border-bottom: 2px solid #e3e3e3;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
-        <tr>
-            <td style="vertical-align: top; width: 50%;">
-                <div style="color: #1976d2; font-weight: bold;">Bill To</div>
-                <div style="font-weight: bold;">{{ $client->user->full_name }}</div>
-                <div>{{ $client->address ?? '' }}</div>
-                <div>{{ $client->user->email }}</div>
-            </td>
-            <td style="vertical-align: top; width: 50%; text-align: right;">
-                <div style="font-weight: bold;">Invoice No : <span
-                        style="font-weight: normal;">{{ $invoice->invoice_id }}</span></div>
-                <div>Invoice Date : <span
-                        style="font-weight: normal;">{{ \Carbon\Carbon::parse($invoice->invoice_date)->format('M d, Y') }}</span>
-                </div>
-                <div>Due Date : <span
-                        style="font-weight: normal;">{{ \Carbon\Carbon::parse($invoice->due_date)->format('M d, Y') }}</span>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border: none;">
+                <tr>
+                    <td style="vertical-align: top; width: 50%;">
+                        <div style="color: #1976d2; font-weight: bold;">Bill To</div>
+                        <div style="font-weight: bold;">{{ $client->user->full_name }}</div>
+                        <div>ABN # {{ $client->Abn ?? '' }}</div>
+                        <div>{{ $client->address ?? '' }}</div>
+                        <div>{{ $client->user->email }}</div>
+                    </td>
+                    <td style="vertical-align: top; width: 50%; text-align: right;">
+                        <div style="font-weight: bold;">Invoice No : <span
+                                style="font-weight: normal;">{{ $invoice->invoice_id }}</span></div>
+                        <div>Invoice Date : <span
+                                style="font-weight: normal;">{{ \Carbon\Carbon::parse($invoice->invoice_date)->format('M d, Y') }}</span>
+                        </div>
+                        <div>Due Date : <span
+                                style="font-weight: normal;">{{ \Carbon\Carbon::parse($invoice->due_date)->format('M d, Y') }}</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
         <!-- Items Table -->
         <div style="padding: 0 20px;">
@@ -107,19 +112,26 @@
                         <table width="100%" style="font-size: 1rem;">
                             <tr>
                                 <td style="padding: 4px 0;">Subtotal</td>
-                                <td style="text-align: right; padding: 4px 0;">{{ getInvoiceCurrencyAmount($invoice->amount, $invoice->currency_id, true) }}</td>
+                                <td style="text-align: right; padding: 4px 0;">
+                                    {{ getInvoiceCurrencyAmount($invoice->amount, $invoice->currency_id, true) }}</td>
                             </tr>
                             <tr>
                                 <td style="padding: 4px 0;">Total</td>
-                                <td style="text-align: right; padding: 4px 0; font-weight: bold;">{{ getInvoiceCurrencyAmount($invoice->final_amount, $invoice->currency_id, true) }}</td>
+                                <td style="text-align: right; padding: 4px 0; font-weight: bold;">
+                                    {{ getInvoiceCurrencyAmount($invoice->final_amount, $invoice->currency_id, true) }}
+                                </td>
                             </tr>
                             <tr>
                                 <td style="padding: 4px 0;">Paid</td>
-                                <td style="text-align: right; padding: 4px 0;">{{ getInvoiceCurrencyAmount(getInvoicePaidAmount($invoice->id), $invoice->currency_id, true) }}</td>
+                                <td style="text-align: right; padding: 4px 0;">
+                                    {{ getInvoiceCurrencyAmount(getInvoicePaidAmount($invoice->id), $invoice->currency_id, true) }}
+                                </td>
                             </tr>
                             <tr>
                                 <td style="padding: 4px 0; color: #1976d2; font-weight: bold;">Balance Due</td>
-                                <td style="text-align: right; padding: 4px 0; color: #1976d2; font-weight: bold;">{{ getInvoiceCurrencyAmount(getInvoiceDueAmount($invoice->id), $invoice->currency_id, true) }}</td>
+                                <td style="text-align: right; padding: 4px 0; color: #1976d2; font-weight: bold;">
+                                    {{ getInvoiceCurrencyAmount(getInvoiceDueAmount($invoice->id), $invoice->currency_id, true) }}
+                                </td>
                             </tr>
                         </table>
                     </td>
@@ -139,6 +151,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

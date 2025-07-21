@@ -190,13 +190,9 @@ class InvoiceController extends AppBaseController
      */
     public function convertToPdf(Invoice $invoice): Response
     {
-        ini_set('max_execution_time', 36000000);
-        $invoice->load(['client.user', 'invoiceTemplate', 'invoiceItems.product', 'invoiceItems.invoiceItemTax', 'invoiceTaxes', 'paymentQrCode']);
         $invoiceData = $this->invoiceRepository->getPdfData($invoice);
-        $invoiceTemplate = $this->invoiceRepository->getDefaultTemplate($invoice);
-
-        $pdf = PDF::loadView("invoices.invoice_template_pdf.$invoiceTemplate", $invoiceData);
-        $pdf->setPaper('A4', 'portrait'); // <-- Add this line
+        $pdf = PDF::loadView("invoices.invoice_template_pdf.defaultTemplate", $invoiceData);
+        $pdf->setPaper('A4', 'portrait');
 
         return $pdf->stream('invoice.pdf');
     }
@@ -289,12 +285,11 @@ class InvoiceController extends AppBaseController
     public function getPublicDownloadInvoicePdf($invoiceId)
     {
         $invoice = Invoice::whereInvoiceId($invoiceId)->firstOrFail();
-        $invoice->load('client.user', 'invoiceTemplate', 'invoiceItems.product', 'invoiceItems.invoiceItemTax');
         $invoiceData = $this->invoiceRepository->getPdfData($invoice);
-        $invoiceTemplate = $this->invoiceRepository->getDefaultTemplate($invoice);
-        $pdf = PDF::loadView("invoices.invoice_template_pdf.$invoiceTemplate", $invoiceData);
-
-        return $pdf->download('invoice.pdf');
+        $pdf = PDF::loadView("invoices.invoice_template_pdf.defaultTemplate", $invoiceData);
+        $filename = 'invoice_' . $invoiceData['invoice']->invoice_id . '.pdf';
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->download($filename);
     }
 
     public function showPublicPayment($invoiceId): Factory|View|Application
